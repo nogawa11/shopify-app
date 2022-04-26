@@ -8,6 +8,7 @@ import {
   TextField,
   Stack,
   Thumbnail,
+  Button,
 } from "@shopify/polaris";
 import { Toast, Loading } from "@shopify/app-bridge-react";
 import { gql, useQuery, useMutation } from "@apollo/client";
