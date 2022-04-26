@@ -69,6 +69,7 @@ export function ProductsPage({ productIds }) {
     <Toast
       content="Price has been updated!"
       onDismiss={() => setToastState(false)}
+      duration="1000"
     />
   );
 
