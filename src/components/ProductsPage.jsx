@@ -115,13 +115,13 @@ export function ProductsPage({ productIds }) {
                     price: newValue,
                   };
 
-                  promise.then(
-                    () =>
+                  promise
+                    .then(() =>
                       mutateFunction({
                         variables: { input: productVariableInput },
-                      }),
-                    setToastState(true)
-                  );
+                      })
+                    )
+                    .then(setToastState(true));
                 }, []);
 
                 return (
