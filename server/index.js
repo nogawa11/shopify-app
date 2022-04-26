@@ -8,6 +8,9 @@ import "dotenv/config";
 import applyAuthMiddleware from "./middleware/auth.js";
 import verifyRequest from "./middleware/verify-request.js";
 
+// import cron from "node-cron";
+// import axios from "axios";
+
 const USE_ONLINE_TOKENS = true;
 const TOP_LEVEL_OAUTH_COOKIE = "shopify_top_level_oauth";
 
@@ -150,3 +153,54 @@ export async function createServer(
 if (!isTest) {
   createServer().then(({ app }) => app.listen(PORT));
 }
+
+//// cron job for Heroku dyno hobby plan
+
+// let headers = {
+//   "X-Shopify-Access-Token": process.env.X_SHOPIFY_ACCESS_TOKEN,
+// };
+
+// function makeSuffix() {
+//   const alphabet = "abcdefghijklmnopqrstuvwxyz";
+//   const randomArray = [" "];
+//   for (let i = 0; i < 3; i++) {
+//     let randomNum = Math.floor(Math.random() * alphabet.length);
+//     randomArray.push(alphabet[randomNum]);
+//   }
+//   return randomArray.join("").toUpperCase();
+// }
+
+// function hasSuffix(title) {
+//   const re = / [A-Z][A-Z][A-Z]/;
+//   return re.test(title);
+// }
+
+// cron.schedule("0 * * * *", () => {
+//   axios
+//     .get(`https://${process.env.SHOP}/admin/api/2022-04/products.json`, {
+//       headers: headers,
+//     })
+//     .then((response) => {
+//       const data = response.data.products;
+//       data.forEach((product) => {
+//         const productId = product.variants[0].product_id;
+//         const body = {
+//           product: {
+//             title: `${
+//               hasSuffix(product.title)
+//                 ? product.title.split(" ").slice(0, -1).join(" ") +
+//                   makeSuffix()
+//                 : product.title + makeSuffix()
+//             }`,
+//           },
+//         };
+//         axios
+//           .put(
+//             `https://${process.env.SHOP}/admin/api/2022-04/products/${productId}.json`,
+//             body,
+//             { headers }
+//           )
+//           .then((response) => console.log(response));
+//       });
+//     });
+// });
