@@ -115,7 +115,7 @@ export function ProductsPage({ productIds }) {
                 const handleClick = () => {
                   const productVariableInput = {
                     id: item.variants.edges[0].node.id,
-                    price: newValue,
+                    price: value,
                   };
 
                   promise
@@ -151,8 +151,12 @@ export function ProductsPage({ productIds }) {
                           type="numeric"
                           onChange={handleChange}
                           value={value}
+                          connectedRight={
+                            <Button primary onClick={handleClick}>
+                              Save
+                            </Button>
+                          }
                         />
-                        <Button onClick={handleClick}>Save</Button>
                       </Stack.Item>
                     </Stack>
                   </ResourceList.Item>
