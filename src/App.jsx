@@ -18,6 +18,7 @@ import "@shopify/polaris/build/esm/styles.css";
 
 import { useState } from "react";
 import { EmptyStatePage } from "./components/EmptyStatePage";
+import { ProductsPage } from "./components/ProductsPage";
 
 export default function App() {
   const [open, setOpen] = useState(false);
@@ -51,7 +52,14 @@ export default function App() {
               onSelection={(resources) => handleSelection(resources)}
               onCancel={() => setOpen(false)}
             />
-            <EmptyStatePage setOpen={setOpen} />
+            {selection.length > 0 ? (
+              <ProductsPage
+                productIds={selection}
+                setSelection={setSelection}
+              />
+            ) : (
+              <EmptyStatePage setOpen={setOpen} />
+            )}
           </Page>
         </MyProvider>
       </AppBridgeProvider>
