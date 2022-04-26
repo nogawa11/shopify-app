@@ -143,12 +143,15 @@ export function ProductsPage({ productIds }) {
                         <TextField
                           label="Set new price (JPY)"
                           name="priceChanger"
-                          // placeholder=`¥{price}`
+                          placeholder={`¥${price}`}
                           type="numeric"
                           onChange={handleChange}
-                          value={value ? value : price}
+                          value={value}
                           connectedRight={
-                            <Button primary onClick={handleClick}>
+                            <Button
+                              {...(toastState ? loading : primary)}
+                              onClick={handleClick}
+                            >
                               Save
                             </Button>
                           }
