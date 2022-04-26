@@ -39,12 +39,14 @@ export default function App() {
       >
         <MyProvider>
           <Page>
-            <TitleBar
-              primaryAction={{
-                content: "Select products",
-                onAction: () => setOpen(true),
-              }}
-            />
+            {selection ? (
+              <TitleBar
+                primaryAction={{
+                  content: "Select products",
+                  onAction: () => setOpen(true),
+                }}
+              />
+            ) : null}
             <ResourcePicker
               resourceType="Product"
               showVariants={false}
