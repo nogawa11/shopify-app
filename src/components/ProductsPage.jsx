@@ -143,7 +143,7 @@ export function ProductsPage({ productIds }) {
                         <TextField
                           label="Set new price (JPY)"
                           name="priceChanger"
-                          placeholder={price}
+                          // placeholder=`¥{price}`
                           type="numeric"
                           onChange={handleChange}
                           value={value ? value : price}
