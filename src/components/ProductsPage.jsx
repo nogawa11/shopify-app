@@ -148,10 +148,7 @@ export function ProductsPage({ productIds }) {
                           onChange={handleChange}
                           value={value}
                           connectedRight={
-                            <Button
-                              {...(toastState ? loading : primary)}
-                              onClick={handleClick}
-                            >
+                            <Button primary onClick={handleClick}>
                               Save
                             </Button>
                           }
