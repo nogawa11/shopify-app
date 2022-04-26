@@ -124,11 +124,7 @@ export function ProductsPage({ productIds }) {
                         variables: { input: productVariableInput },
                       })
                     )
-                    .then(
-                      setTimeout(() => {
-                        setToastState(true);
-                      }, "500")
-                    );
+                    .then(setToastState(true));
                 };
 
                 return (
@@ -150,7 +146,7 @@ export function ProductsPage({ productIds }) {
                           placeholder={price}
                           type="numeric"
                           onChange={handleChange}
-                          value={value}
+                          value={value ? value : price}
                           connectedRight={
                             <Button primary onClick={handleClick}>
                               Save
