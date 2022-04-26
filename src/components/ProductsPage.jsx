@@ -121,7 +121,11 @@ export function ProductsPage({ productIds }) {
                         variables: { input: productVariableInput },
                       })
                     )
-                    .then(setToastState(true));
+                    .then(
+                      setTimeout(() => {
+                        setToastState(true);
+                      }, "3000")
+                    );
                 }, []);
 
                 return (
