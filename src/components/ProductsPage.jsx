@@ -127,7 +127,7 @@ export function ProductsPage({ productIds }) {
                     .then(
                       setTimeout(() => {
                         setToastState(true);
-                      }, "2000")
+                      }, "500")
                     );
                 };
 
