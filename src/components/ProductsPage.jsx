@@ -57,7 +57,7 @@ const UPDATE_PRICE = gql`
 `;
 
 export function ProductsPage({ productIds }) {
-  const { loading, error, data } = useQuery(GET_PRODUCTS_BY_ID, {
+  const { loading, error, data, refetch } = useQuery(GET_PRODUCTS_BY_ID, {
     variables: { ids: productIds },
   });
 
@@ -69,7 +69,6 @@ export function ProductsPage({ productIds }) {
     <Toast
       content="Price has been updated!"
       onDismiss={() => setToastState(false)}
-      duration="1000"
     />
   );
 
@@ -107,27 +106,27 @@ export function ProductsPage({ productIds }) {
                   />
                 );
 
-                const price = item.variants.edges[0].node.price;
-                const [value, setValue] = useState({ price });
-                const handleChange = useCallback((newValue) => {
-                  setValue(newValue);
-                  const productVariableInput = {
-                    id: item.variants.edges[0].node.id,
-                    price: newValue,
-                  };
+                // const price = item.variants.edges[0].node.price;
+                // const [value, setValue] = useState({ price });
+                // const handleChange = useCallback((newValue) => {
+                //   setValue(newValue);
+                //   const productVariableInput = {
+                //     id: item.variants.edges[0].node.id,
+                //     price: newValue,
+                //   };
 
-                  promise
-                    .then(() =>
-                      mutateFunction({
-                        variables: { input: productVariableInput },
-                      })
-                    )
-                    .then(
-                      setTimeout(() => {
-                        setToastState(true);
-                      }, "2000")
-                    );
-                }, []);
+                //   promise
+                //     .then(() =>
+                //       mutateFunction({
+                //         variables: { input: productVariableInput },
+                //       })
+                //     )
+                //     .then(
+                //       setTimeout(() => {
+                //         setToastState(true);
+                //       }, "2000")
+                //     );
+                // }, []);
 
                 return (
                   <ResourceList.Item
@@ -147,7 +146,7 @@ export function ProductsPage({ productIds }) {
                           name="priceChanger"
                           placeholder={price}
                           type="numeric"
-                          onChange={handleChange}
+                          // onChange={handleChange}
                           value={value}
                         />
                       </Stack.Item>
@@ -157,6 +156,25 @@ export function ProductsPage({ productIds }) {
               }}
             />
           </Card>
+          <Button
+            onClick={() => {
+              const items = data.nodes;
+              items.forEach((item) => {
+                const productVariableInput = {
+                  id: item.variants.edges[0].node.id,
+                  price: { value },
+                };
+
+                promise.then(() =>
+                  mutateFunction({
+                    variables: { input: productVariableInput },
+                  })
+                );
+              });
+            }}
+          >
+            Save
+          </Button>
         </Layout.Section>
       </Layout>
     </>
