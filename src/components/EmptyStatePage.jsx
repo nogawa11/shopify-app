@@ -1,4 +1,4 @@
-import { Layout, EmptyState, Button } from "@shopify/polaris";
+import { Layout, EmptyState } from "@shopify/polaris";
 
 const img = "https://cdn.shopify.com/s/files/1/0757/9955/files/empty-state.svg";
 
