@@ -41,13 +41,29 @@ const GET_PRODUCTS_BY_ID = gql`
   }
 `;
 
+const UPDATE_PRICE = gql`
+  mutation productVariantUpdate($input: ProductVariantInput!) {
+    productVariantUpdate(input: $input) {
+      product {
+        title
+      }
+      productVariant {
+        id
+        price
+      }
+    }
+  }
+`;
+
 export function ProductsPage({ productIds }) {
   const { loading, error, data } = useQuery(GET_PRODUCTS_BY_ID, {
     variables: { ids: productIds },
   });
 
-  const [toastState, setToastState] = useState(false);
+  const [mutateFunction] = useMutation(UPDATE_PRICE);
+  let promise = new Promise((resolve) => resolve());
 
+  const [toastState, setToastState] = useState(false);
   const toastMarkup = toastState && (
     <Toast
       content="Price has been updated!"
@@ -56,7 +72,6 @@ export function ProductsPage({ productIds }) {
   );
 
   if (loading) return <Loading />;
-
   if (error) {
     console.warn(error);
     return (
@@ -90,6 +105,24 @@ export function ProductsPage({ productIds }) {
                   />
                 );
 
+                const price = item.variants.edges[0].node.price;
+                const [value, setValue] = useState({ price });
+                const handleChange = useCallback((newValue) => {
+                  setValue(newValue);
+                  const productVariableInput = {
+                    id: item.variants.edges[0].node.id,
+                    price: newValue,
+                  };
+
+                  promise.then(
+                    () =>
+                      mutateFunction({
+                        variables: { input: productVariableInput },
+                      }),
+                    setToastState(true)
+                  );
+                }, []);
+
                 return (
                   <ResourceList.Item
                     id={item.id}
@@ -101,6 +134,16 @@ export function ProductsPage({ productIds }) {
                         <h3>
                           <TextStyle variation="strong">{item.title}</TextStyle>
                         </h3>
+                      </Stack.Item>
+                      <Stack.Item>
+                        <TextField
+                          label="Set new price (JPY)"
+                          name="priceChanger"
+                          placeholder={price}
+                          type="numeric"
+                          onChange={handleChange}
+                          value={value}
+                        />
                       </Stack.Item>
                     </Stack>
                   </ResourceList.Item>
