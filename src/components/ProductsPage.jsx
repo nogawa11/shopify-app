@@ -1,15 +1,16 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import {
   Layout,
   Banner,
   Card,
   ResourceList,
   TextStyle,
+  TextField,
   Stack,
   Thumbnail,
 } from "@shopify/polaris";
 import { Toast, Loading } from "@shopify/app-bridge-react";
-import { gql, useQuery } from "@apollo/client";
+import { gql, useQuery, useMutation } from "@apollo/client";
 
 const GET_PRODUCTS_BY_ID = gql`
   query getProducts($ids: [ID!]!) {
