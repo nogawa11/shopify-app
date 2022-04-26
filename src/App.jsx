@@ -7,16 +7,26 @@ import {
 import {
   Provider as AppBridgeProvider,
   useAppBridge,
+  ResourcePicker,
+  TitleBar,
 } from "@shopify/app-bridge-react";
 import { authenticatedFetch } from "@shopify/app-bridge-utils";
 import { Redirect } from "@shopify/app-bridge/actions";
-import { AppProvider as PolarisProvider } from "@shopify/polaris";
+import { AppProvider as PolarisProvider, Page } from "@shopify/polaris";
 import translations from "@shopify/polaris/locales/en.json";
 import "@shopify/polaris/build/esm/styles.css";
 
-import { HomePage } from "./components/HomePage";
+import { useState } from "react";
+import { EmptyStatePage } from "./components/EmptyStatePage";
 
 export default function App() {
+  const [open, setOpen] = useState(false);
+  const [selection, setSelection] = useState([]);
+  const handleSelection = (resources) => {
+    setSelection(resources.selection.map((product) => product.id));
+    setOpen(false);
+  };
+
   return (
     <PolarisProvider i18n={translations}>
       <AppBridgeProvider
@@ -27,7 +37,22 @@ export default function App() {
         }}
       >
         <MyProvider>
-          <HomePage />
+          <Page>
+            <TitleBar
+              primaryAction={{
+                content: "Select products",
+                onAction: () => setOpen(true),
+              }}
+            />
+            <ResourcePicker
+              resourceType="Product"
+              showVariants={false}
+              open={open}
+              onSelection={(resources) => handleSelection(resources)}
+              onCancel={() => setOpen(false)}
+            />
+            <EmptyStatePage setOpen={setOpen} />
+          </Page>
         </MyProvider>
       </AppBridgeProvider>
     </PolarisProvider>
