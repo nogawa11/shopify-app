@@ -124,7 +124,7 @@ export function ProductsPage({ productIds }) {
                     .then(
                       setTimeout(() => {
                         setToastState(true);
-                      }, "3000")
+                      }, "2000")
                     );
                 }, []);
 
