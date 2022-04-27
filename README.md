@@ -1,6 +1,6 @@
 # Shopify Challenge
 
-Shopify app that allows for bulk price edits and automatically updates the title every hour.
+Shopify app that allows for bulk price edits and automatically updates all produce titles every hour.
 
 Initial boiler plate was created using the [Shopify CLI](https://shopify.dev/apps/tools/cli).
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md)
