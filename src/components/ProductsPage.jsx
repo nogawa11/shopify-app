@@ -146,7 +146,7 @@ export function ProductsPage({ productIds }) {
                           placeholder={`Current Price: ¥${Number(
                             price
                           ).toLocaleString("en-US")}`}
-                          type="numeric"
+                          type="number"
                           onChange={handleChange}
                           value={value}
                           connectedRight={
