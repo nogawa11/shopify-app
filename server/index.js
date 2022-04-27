@@ -8,9 +8,6 @@ import "dotenv/config";
 import applyAuthMiddleware from "./middleware/auth.js";
 import verifyRequest from "./middleware/verify-request.js";
 
-// import cron from "node-cron";
-// import axios from "axios";
-
 const USE_ONLINE_TOKENS = true;
 const TOP_LEVEL_OAUTH_COOKIE = "shopify_top_level_oauth";
 
@@ -155,6 +152,9 @@ if (!isTest) {
 }
 
 //// cron job for Heroku dyno hobby plan
+
+// import cron from "node-cron";
+// import axios from "axios";
 
 // let headers = {
 //   "X-Shopify-Access-Token": process.env.X_SHOPIFY_ACCESS_TOKEN,

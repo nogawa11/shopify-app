@@ -61,7 +61,6 @@ export function ProductsPage({ productIds }) {
   const { loading, error, data } = useQuery(GET_PRODUCTS_BY_ID, {
     variables: { ids: productIds },
   });
-
   const [mutateFunction] = useMutation(UPDATE_PRICE);
   let promise = new Promise((resolve) => resolve());
 
@@ -112,6 +111,7 @@ export function ProductsPage({ productIds }) {
                 const handleChange = useCallback((newValue) => {
                   setValue(newValue);
                 }, []);
+
                 const handleClick = () => {
                   const productVariableInput = {
                     id: item.variants.edges[0].node.id,

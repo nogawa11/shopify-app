@@ -15,7 +15,6 @@ import { Redirect } from "@shopify/app-bridge/actions";
 import { AppProvider as PolarisProvider, Page } from "@shopify/polaris";
 import translations from "@shopify/polaris/locales/en.json";
 import "@shopify/polaris/build/esm/styles.css";
-
 import { useState } from "react";
 import { EmptyStatePage } from "./components/EmptyStatePage";
 import { ProductsPage } from "./components/ProductsPage";
