@@ -143,7 +143,9 @@ export function ProductsPage({ productIds }) {
                         <TextField
                           label="Set new price (JPY)"
                           name="priceChanger"
-                          placeholder={`Current Price: ¥${price}`}
+                          placeholder={`Current Price: ¥${price.toLocaleString(
+                            "en-US"
+                          )}`}
                           type="numeric"
                           onChange={handleChange}
                           value={value}
